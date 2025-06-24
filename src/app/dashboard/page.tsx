@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
+import { Dashboard } from './Dashboard';
 
 export const metadata: Metadata = {
-  title: 'Dashboard'
+  title: 'Dashboard',
 };
 
-export default function Dashboard() {
-  return (
-    <div>Dashboard</div>
-  );
+export default function DashboardPage() {
+  return <Dashboard />;
 }

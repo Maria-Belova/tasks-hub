@@ -1,1 +1,22 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #7e6df0;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  font-family: var(--font-sans), sans-serif;
+}
+
+body {
+  @apply text-[#2a2a2a] dark:text-white bg-[#f6f4ff] dark:bg-[#1a1a1a];
+  min-width: 320px;
+  min-height: 100vh;
+}

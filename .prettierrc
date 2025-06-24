@@ -6,8 +6,9 @@
   "semi": true,
   "printWidth": 150,
   "arrowParens": "always",
-  "useTabs": true,
-  "singleAttributePerLine": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleAttributePerLine": false,
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)$",
@@ -25,8 +26,5 @@
     "^../(.*)",
     "^./(.*)",
     "(.scss)$"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "plugins": ["@trivago/prettier-plugin-sort-importes"]
+  ]
 }
