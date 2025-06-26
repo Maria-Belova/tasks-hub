@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { Header } from '@/components/ui/Header';
 import { SearchField } from '@/components/ui/search-field/SearchField';
 import { StatisticList } from './statistics/StatisticList';
+import { Chart } from './statistics/chart/Chart';
 
 const DynamicThemeToggle = dynamic(() => import('@/components/ui/theme-toggle/ThemeToggle').then((mod) => mod.ThemeToggle), { ssr: false });
 
@@ -18,9 +19,11 @@ export const Dashboard = () => {
             <DynamicThemeToggle />
           </div>
         </div>
-        <div className='grid grid-cols-[25%_75%]'>
+        <div className='grid grid-cols-[25%_75%] gap-4'>
           <StatisticList />
-          <div></div>
+          <div className='pr-3'>
+            <Chart />
+          </div>
         </div>
       </div>
       <div className='bg-violet-200 p-5'>CHAT</div>
