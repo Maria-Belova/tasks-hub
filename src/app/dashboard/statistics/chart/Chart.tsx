@@ -2,6 +2,7 @@ import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAx
 import { PROJECTS_STATISTICS_DATA } from './chart.data';
 import { useTheme } from 'next-themes';
 import { CustomTooltip } from './CustomTooltip';
+import { SectionHeader } from '@/components/ui/header/SectionHeader';
 
 export const Chart = () => {
   const { resolvedTheme } = useTheme();
@@ -14,8 +15,10 @@ export const Chart = () => {
 
   return (
     <div className='w-full h-full rounded-2xl pt-4 pr-4 shadow bg-white dark:bg-neutral-700'>
-      <div className='text-2xl font-medium ml-4 mb-3'>Projects Statistic</div>
-      <div className='' style={{ height: 'calc(100% - 64px)' }}>
+      <div className='ml-4 mb-3'>
+        <SectionHeader>Projects Statistic</SectionHeader>
+      </div>
+      <div style={{ height: 'calc(100% - 64px)' }}>
         <ResponsiveContainer width='100%' height='100%'>
           <AreaChart data={PROJECTS_STATISTICS_DATA} margin={{ top: 20, right: 20, left: 0, bottom: 10 }}>
             <defs>

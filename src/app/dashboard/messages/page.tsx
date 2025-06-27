@@ -1,10 +1,10 @@
-import { Header } from '@/components/ui/Header';
 import type { Metadata } from 'next';
+import { PageHeader } from '@/components/ui/header/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Messages',
 };
 
 export default function Messages() {
-  return <Header>Messages Page</Header>;
+  return <PageHeader>Messages Page</PageHeader>;
 }

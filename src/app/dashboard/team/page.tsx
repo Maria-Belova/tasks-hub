@@ -1,10 +1,10 @@
-import { Header } from '@/components/ui/Header';
 import type { Metadata } from 'next';
+import { PageHeader } from '@/components/ui/header/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Team',
 };
 
 export default function Team() {
-  return <Header>Team Page</Header>;
+  return <PageHeader>Team Page</PageHeader>;
 }
