@@ -2,12 +2,12 @@
 
 import dynamic from 'next/dynamic';
 import { PageHeader } from '@/components/ui/header/PageHeader';
-import { SearchField } from '@/components/ui/search-field/SearchField';
+import { SearchField } from '@/components/ui/SearchField';
 import { StatisticList } from './statistics/StatisticList';
 import { Chart } from './statistics/chart/Chart';
 import { LastTasks } from './statistics/last-tasks/LastTasks';
 
-const DynamicThemeToggle = dynamic(() => import('@/components/ui/theme-toggle/ThemeToggle').then((mod) => mod.ThemeToggle), { ssr: false });
+const DynamicThemeToggle = dynamic(() => import('@/components/ui/ThemeToggle').then((mod) => mod.ThemeToggle), { ssr: false });
 
 export const Dashboard = () => {
   return (

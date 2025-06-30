@@ -6,6 +6,22 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer utilities {
+  @keyframes stripes {
+    from {
+      background-position: 0 0;
+    }
+
+    to {
+      background-position: 56px 0;
+    }
+  }
+
+  .animate-stripes {
+    animation: stripes 1s linear infinite;
+  }
+}
+
 html {
   font-size: 16px;
 }

@@ -11,10 +11,10 @@ export const LastTasks = () => {
     <div>
       <div className='flex items-center mb-5'>
         <SectionHeader>Last Tasks</SectionHeader>
-        <div className='ml-2.5 text-2xl text-[#A1A1A1]'>{`(${LAST_TASKS.length})`}</div>
+        <div className='ml-2.5 text-2xl text-[#A1A1A1] opacity-40'>{`(${LAST_TASKS.length})`}</div>
       </div>
 
-      <div className='flex w-full items-center gap-4'>
+      <div className='flex w-full items-start gap-4'>
         {LAST_TASKS.map((task) => {
           return <LastTaskItem key={task.id} task={task} />;
         })}

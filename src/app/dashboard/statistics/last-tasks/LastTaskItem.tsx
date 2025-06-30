@@ -2,6 +2,7 @@ import { Image, Link, MessageCircleMore, Pencil, Plane, Plus } from 'lucide-reac
 import type { ILastTask } from './last-tasks.types';
 import { ActionButton } from './task-actions/ActionButton';
 import { AttachmentItem } from './task-actions/AttachmentItem';
+import { ProgressBar } from '../../../../components/ui/ProgressBar';
 
 interface ILastTaskItem {
   task: ILastTask;
@@ -20,17 +21,19 @@ export const LastTaskItem = ({ task }: ILastTaskItem) => {
             <div className='text-[#A1A1A1] mt-2'>{`Due: ${task.dueTime}${task.dueTime === 1 ? 'day' : 'days'}`}</div>
           </div>
         </div>
-        <div className='flex'>
+        <div className='flex -space-x-3.5'>
           {task.teamMembers?.map((member) => {
             return (
-              <div key={member.id} className='w-10 h-10 bg-[#f6f4ff] rounded-full flex items-center justify-center text-primary'>
-                {member.id}
+              <div key={member.id} className='w-10 h-10 border border-white bg-[#f6f4ff] rounded-full flex items-center justify-center text-2xl'>
+                {member.avatar}
               </div>
             );
           })}
         </div>
       </div>
-      <div className='my-4'>{task.completionPercentage}%</div>
+      <div className='my-4'>
+        <ProgressBar completionPercentage={task.completionPercentage} />
+      </div>
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-4'>
           <AttachmentItem content={{ title: 'Messages', icon: MessageCircleMore }} count={task.messageCount} />
