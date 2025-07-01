@@ -10,7 +10,7 @@ interface ILastTaskItem {
 
 export const LastTaskItem = ({ task }: ILastTaskItem) => {
   return (
-    <div className='bg-white dark:bg-neutral-700 rounded-2xl w-[25%] p-4 cursor-pointer'>
+    <div className='bg-white dark:bg-neutral-700 rounded-2xl p-4 cursor-pointer'>
       <div className='flex justify-between items-start'>
         <div className='flex items-start'>
           <div className='text-primary dark:text-white bg-[#f6f4ff] dark:bg-primary p-4 flex items-center justify-center rounded-full'>

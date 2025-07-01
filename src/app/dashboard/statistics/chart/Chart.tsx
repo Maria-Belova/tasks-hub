@@ -31,9 +31,9 @@ export const Chart = () => {
             <XAxis dataKey='name' stroke={axisColor} fontSize={14} tickMargin={14} fontWeight={600} tickLine={false} axisLine={false} />
             <YAxis stroke={axisColor} tickLine={false} tickMargin={20} axisLine={false} fontSize={14} fontWeight={600} />
             <Tooltip content={<CustomTooltip />} />
-            <Area type='monotone' dataKey='projectsCount' stroke='none' fill='url(#gradientPurple)' />
+            <Area type='basis' dataKey='projectsCount' stroke='none' fill='url(#gradientPurple)' />
             <Line
-              type='monotone'
+              type='basis'
               dataKey='projectsCount'
               stroke={lineColor}
               strokeWidth={3}
