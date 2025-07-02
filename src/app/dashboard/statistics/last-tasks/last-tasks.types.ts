@@ -14,3 +14,5 @@ export interface ILastTask {
   attachmentCount: number;
   teamMembers: ITeamMember[];
 }
+
+export type TTaskSortBy = 'asc' | 'desc';
