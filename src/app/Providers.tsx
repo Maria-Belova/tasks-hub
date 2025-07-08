@@ -7,6 +7,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
   return (
     <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
       {children}
+      <div id='modal-root'></div>
     </ThemeProvider>
   );
 };

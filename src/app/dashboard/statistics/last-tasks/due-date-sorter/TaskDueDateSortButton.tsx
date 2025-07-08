@@ -1,5 +1,5 @@
 import { ArrowUp01, ArrowUp10 } from 'lucide-react';
-import type { TTaskSortBy } from '../last-tasks.types';
+import type { TTaskSortBy } from '../../../../../types/tasks.types';
 
 interface ITaskDueDateSortButton {
   sortByDueDate: TTaskSortBy;

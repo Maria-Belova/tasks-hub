@@ -1,12 +1,12 @@
 import { SectionHeader } from '@/components/ui/header/SectionHeader';
 import { LAST_TASKS } from './last-tasks.data';
-import { LastTaskItem } from './LastTaskItem';
+import { Task } from '../../../../components/ui/task/Task';
 import { useState } from 'react';
 import { STATUSES, type Status } from './status-tabs.types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/animate-ui/base/tabs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TaskDueDateSortButton } from './due-date-sorter/TaskDueDateSortButton';
-import type { TTaskSortBy } from './last-tasks.types';
+import type { TTaskSortBy } from '../../../../types/tasks.types';
 
 export const LastTasks = () => {
   const [status, setStatus] = useState<Status>(STATUSES.ALL);
@@ -17,8 +17,8 @@ export const LastTasks = () => {
   );
 
   const sorteredTasks = filteredTasks?.sort((a, b) => {
-    const dateA = new Date(a.dueTime).getTime();
-    const dateB = new Date(b.dueTime).getTime();
+    const dateA = new Date(a.dueDate).getTime();
+    const dateB = new Date(b.dueDate).getTime();
 
     if (sortType === 'asc') {
       return dateA - dateB;
@@ -64,7 +64,7 @@ export const LastTasks = () => {
                 className='w-[25%]'
               >
                 <div>
-                  <LastTaskItem key={task.id} task={task} />
+                  <Task key={task.id} task={task} />
                 </div>
               </motion.div>
             ))}

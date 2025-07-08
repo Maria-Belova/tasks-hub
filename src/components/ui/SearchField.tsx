@@ -9,7 +9,7 @@ interface ISearchField {
   onChange: (value: string) => void;
 }
 
-export const SearchField: FC<ISearchField> = ({ placeholder = 'Search something...', value, onChange }: ISearchField) => {
+export const SearchField = ({ placeholder = 'Search something...', value, onChange }: ISearchField) => {
   return (
     <div className='flex items-center w-xs px-4 py-2 rounded-full bg-white dark:bg-neutral-700 shadow-sm'>
       <Search size={20} className='text-neutual-500 mr-2' />

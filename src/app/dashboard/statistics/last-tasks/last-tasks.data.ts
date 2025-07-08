@@ -1,44 +1,48 @@
-import type { ILastTask } from './last-tasks.types';
+import { LayoutDashboard, Plane, SearchCode } from 'lucide-react';
+import type { ITask } from '../../../../types/tasks.types';
 
-export const LAST_TASKS: ILastTask[] = [
+export const LAST_TASKS: ITask[] = [
   {
     id: 1,
+    icon: 'Plane',
     label: 'Travel App User Flow',
-    dueTime: 5,
+    dueDate: new Date(),
     completionPercentage: 43,
-    messageCount: 3,
-    imageCount: 6,
-    attachmentCount: 2,
+    comments: ['test'],
+    resources: ['test'],
     teamMembers: [
       { id: 1, name: 'Mary Gray', avatar: '👩‍🎨' },
       { id: 2, name: 'Jhon Doy', avatar: '👨‍🔬' },
     ],
+    subTusks: [{ id: 1, title: '1 subtask', isCompleted: false }],
   },
   {
     id: 2,
+    icon: 'LayoutDashboard',
     label: 'Create Dasboard',
-    dueTime: 1,
+    dueDate: new Date(),
     completionPercentage: 100,
-    messageCount: 5,
-    imageCount: 4,
-    attachmentCount: 1,
+    comments: ['test'],
+    resources: ['test'],
     teamMembers: [
       { id: 1, name: 'Mary Gray', avatar: '👮' },
       { id: 2, name: 'Jhon Doy', avatar: '👨‍💻' },
     ],
+    subTusks: [{ id: 1, title: '1 subtask', isCompleted: false }],
   },
   {
     id: 3,
+    icon: 'Briefcase',
     label: 'Sky-Track Review',
-    dueTime: 3,
+    dueDate: new Date(),
     completionPercentage: 82,
-    messageCount: 7,
-    imageCount: 2,
-    attachmentCount: 4,
+    comments: ['test'],
+    resources: ['test'],
     teamMembers: [
       { id: 1, name: 'Mary Gray', avatar: '👩‍💻' },
       { id: 2, name: 'Jhon Doy', avatar: '🤵' },
       { id: 3, name: 'Max Red', avatar: '👨‍🎓' },
     ],
+    subTusks: [{ id: 1, title: '1 subtask', isCompleted: false }],
   },
 ];
