@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import { SITE_NAME } from '@/constants/appConstants';
+import { SITE_NAME } from '@/constants/app.constants';
 import './globals.css';
 import { Providers } from './Providers';
 

@@ -6,12 +6,13 @@ import { SearchField } from '@/components/ui/SearchField';
 import { StatisticList } from './statistics/StatisticList';
 import { Chart } from './statistics/chart/Chart';
 import { LastTasks } from './statistics/last-tasks/LastTasks';
+import { TasksTimeline } from '@/components/tasks-timeline/TasksTimeline';
 
 const DynamicThemeToggle = dynamic(() => import('@/components/ui/ThemeToggle').then((mod) => mod.ThemeToggle), { ssr: false });
 
 export const Dashboard = () => {
   return (
-    <div className='grid grid-cols-[3fr_1fr] h-screen'>
+    <div className='grid grid-cols-[3fr_1fr] min-h-screen'>
       <div className='p-5'>
         <div className='flex justify-between mb-5'>
           <PageHeader>Dashboard</PageHeader>
@@ -26,9 +27,11 @@ export const Dashboard = () => {
             <Chart />
           </div>
         </div>
-        <div className='mt-6'>
+        <div className='my-6'>
           <LastTasks />
         </div>
+
+        <TasksTimeline />
       </div>
       <div className='bg-violet-200 p-5'>CHAT</div>
     </div>

@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -26,6 +26,7 @@ html {
 html,
 body {
   font-family: var(--font-sans), sans-serif;
+  height: 100%;
 }
 
 body {

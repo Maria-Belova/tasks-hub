@@ -34,7 +34,7 @@ export const ProgressBar = ({ completionPercentage }: IProgressBar) => {
       <div
         className={cn(
           colorProgressBar,
-          'h-full bg-gre rounded-full bg-[length:56px_56px] text-white font-medium flex items-center justify-center animate-stripes cursor-default',
+          'h-full bg-gre rounded-full bg-[length:56px_56px] text-white font-medium flex items-center justify-center animate-stripes cursor-default transform-all duration-500',
         )}
         style={{
           width: `${clamped}%`,
