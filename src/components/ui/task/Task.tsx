@@ -30,7 +30,7 @@ export const Task = ({ task, isColor, isMinimal }: ITaskProps) => {
   );
 
   return (
-    <div className={cn('bg-white dark:bg-neutral-700 rounded-2xl p-4', isMinimal && 'p-5', isColor && task.color, isColor && 'text-white')}>
+    <div className={cn('bg-white dark:bg-neutral-700 rounded-2xl p-4', isMinimal && 'p-5', isColor && task.color, isColor && 'text-white', isMinimal && `dark:${task.color}`)}>
       <div className={cn('flex justify-between items-start', isMinimal && 'flex-col')}>
         <div className='flex items-start'>
           <div className='text-primary dark:text-white bg-[#f6f4ff] dark:bg-primary p-4 flex items-center justify-center rounded-full'>

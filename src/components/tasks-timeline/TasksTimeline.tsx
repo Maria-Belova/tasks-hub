@@ -10,7 +10,7 @@ interface ITasksTasksTimeline {}
 
 export const TasksTimeline = observer(({}: ITasksTasksTimeline) => {
   const tasks = taskStore.todayTasks;
-  const users = [...new Set(tasks.map((task) => task.users).flat())];
+  const users = [...new Map(tasks.flatMap((task) => task.users).map((user) => [user.id, user])).values()];
 
   return (
     <div className='bg-white dark:bg-neutral-700 rounded-2xl p-5'>
