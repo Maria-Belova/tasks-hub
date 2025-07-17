@@ -6,34 +6,21 @@ import { z } from 'zod';
 import { AuthSchema } from '@/zod-schemes/auth.zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { observer } from 'mobx-react-lite';
-import { DashboardPages } from '@/config/dashboard-pages';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { authStore } from '@/stores/auth.store';
+import { signInWithEmail } from './actions';
 
-interface IAuthForm {
-  type: 'login' | 'register' | 'forgot-password' | 'reset-password';
-}
-
-export const AuthForm = observer(({ type }: IAuthForm) => {
-  const isLogin = type === 'login';
-
-  const router = useRouter();
-
+export const AuthForm = () => {
   const form = useForm<z.infer<typeof AuthSchema>>({
     resolver: zodResolver(AuthSchema),
   });
 
   function onSubmit(data: z.infer<typeof AuthSchema>) {
-    authStore.login();
+    signInWithEmail({ email: data.email });
     form.reset();
-    if (authStore.isLoggedIn) {
-      toast.success(isLogin ? 'Successfylly login!' : 'Registered successfylly!');
-      router.replace(DashboardPages.DASHBOARD);
-    }
+
+    toast.success('Link to sign in has been sent to your email. Please check your inbox');
   }
 
   return (
@@ -48,7 +35,7 @@ export const AuthForm = observer(({ type }: IAuthForm) => {
 
         <div className='flex flex-col items-center gap-1'>
           <div className='text-3xl font-semibold'>Welcome back</div>
-          <div>Please enter your details to sign in</div>
+          <div>Please enter your email to sign in with link</div>
         </div>
 
         <div className='mt-10'>
@@ -67,22 +54,9 @@ export const AuthForm = observer(({ type }: IAuthForm) => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name='password'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input className='h-12' type='password' placeholder='Enter password' {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <Button type='submit' className='cursor-pointer w-full h-13 text-lg'>
-                Sign in
+                Send link
               </Button>
             </form>
           </Form>
@@ -95,4 +69,4 @@ export const AuthForm = observer(({ type }: IAuthForm) => {
       </div>
     </div>
   );
-});
+};

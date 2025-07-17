@@ -1,17 +1,10 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { token } from './services/token.service';
-import { PublicPages } from './config/public-pages';
+import { type NextRequest } from 'next/server';
+import { updateSession } from '@/utils/supabase/middleware';
 
-export function middleware(request: NextRequest) {
-  const isLoggedIn = !!request.cookies.get(token.accessToken);
-
-  if (!isLoggedIn) {
-    return NextResponse.redirect(new URL(PublicPages.LOGIN, request.url));
-  }
-
-  return NextResponse.next();
+export async function middleware(request: NextRequest) {
+  return await updateSession(request);
 }
 
 export const config = {
-  matcher: '/dashboard/:path*',
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 };
