@@ -1,11 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 import { TASKS } from '@/app/dashboard/statistics/last-tasks/tasks.data';
 import { STATUS, type Status } from '@/types/status-tabs.types';
-import type { ITask, ITaskWithTime, TSubTaskFormData, TTaskFormData, TTaskSortBy } from '@/types/tasks.types';
+import type { TSubTask, TTask, TTaskFormData, TTaskSortBy } from '@/types/tasks.types';
 import { isToday } from 'date-fns';
 
 class TaskStore {
-  tasks: ITask[] = TASKS;
+  tasks: TTask[] = TASKS;
   status: Status = STATUS.ALL;
   sortByDueDate: TTaskSortBy = 'asc';
 
@@ -13,7 +13,11 @@ class TaskStore {
     makeAutoObservable(this);
   }
 
-  getTaskById(id: string): ITask | undefined {
+  loadStoreFormServer(tasks: TTask[]): void {
+    this.tasks = tasks;
+  }
+
+  getTaskById(id: string): TTask | undefined {
     return this.tasks.find((task) => task.id === id);
   }
 
@@ -25,21 +29,21 @@ class TaskStore {
     }
   }
 
-  addSubTask(taskId: string, subTask: TSubTaskFormData): void {
+  addSubTask(taskId: string, subTask: TSubTask): void {
     const task = this.getTaskById(taskId);
     if (!task) {
       return;
     }
 
-    if (!task.subTasks) {
-      task.subTasks = [];
+    if (!task.subtask) {
+      task.subtask = [];
     }
 
-    task.subTasks.push({
-      id: crypto.randomUUID(),
-      title: subTask.title,
-      isCompleted: false,
-    });
+    // task.sub_task.push({
+    //   id: crypto.randomUUID(),
+    //   title: subTask.title,
+    //   is_completed: false,
+    // });
   }
 
   setStatus(status: Status): void {
@@ -50,23 +54,23 @@ class TaskStore {
     this.sortByDueDate = sortBy;
   }
 
-  get filteredTasks(): ITask[] {
+  get filteredTasks(): TTask[] {
     let filtered = this.tasks;
 
     filtered = filtered.filter((task) => {
       switch (this.status) {
         case STATUS.ACTIVE:
-          return task.subTasks.some((subTask) => !subTask.isCompleted);
+          return task?.subtask?.some((subTask) => !subTask.is_completed);
         case STATUS.COMPLETED:
-          return task.subTasks.every((subTask) => subTask.isCompleted);
+          return task?.subtask?.every((subTask) => subTask.is_completed);
         default:
           return true;
       }
     });
 
     return filtered?.slice().sort((a, b) => {
-      const dateA = new Date(a.dueDate.date).getTime();
-      const dateB = new Date(b.dueDate.date).getTime();
+      const dateA = new Date(a.due_date).getTime();
+      const dateB = new Date(b.due_date).getTime();
 
       if (this.sortByDueDate === 'asc') {
         return dateA - dateB;
@@ -76,11 +80,11 @@ class TaskStore {
     });
   }
 
-    get todayTasks() {
+  get todayTasks() {
     return this.tasks.filter((task) => {
-      const taskDate = new Date(task.dueDate.date);
-      return isToday(taskDate) && task.dueDate.startTime && task.dueDate.endTime;
-    }) as ITaskWithTime[];
+      const taskDate = new Date(task.due_date);
+      return isToday(taskDate) && task.start_time && task.end_time;
+    }) as TTask[];
   }
 }
 

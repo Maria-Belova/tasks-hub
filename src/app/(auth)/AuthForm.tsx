@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { signInWithEmail } from './actions';
+import { error } from 'console';
 
 export const AuthForm = () => {
   const form = useForm<z.infer<typeof AuthSchema>>({
@@ -17,10 +18,16 @@ export const AuthForm = () => {
   });
 
   function onSubmit(data: z.infer<typeof AuthSchema>) {
-    signInWithEmail({ email: data.email });
-    form.reset();
-
-    toast.success('Link to sign in has been sent to your email. Please check your inbox');
+    signInWithEmail({ email: data.email })
+      .then(() => {
+        toast.success('Link to sign in has been sent to your email. Please check your inbox');
+      })
+      .catch((error) => {
+        toast.error(`Error: ${error.message}`);
+      })
+      .finally(() => {
+        form.reset();
+      });
   }
 
   return (

@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { Image, Link, MessageCircleMore, Pencil, Plus } from 'lucide-react';
-import type { ITask } from '../../../types/tasks.types';
 import { ActionButton } from './task-actions/ActionButton';
 import { AttachmentItem } from './task-actions/AttachmentItem';
 import { ProgressBar } from '../ProgressBar';
@@ -9,9 +8,10 @@ import { ICON_MAP } from '@/utils/icon-mapper';
 import { SubTaskModal } from './sub-task/SubTaskModal';
 import { format, isToday } from 'date-fns';
 import { cn } from '@/lib/utils';
+import type { TTask } from '@/types/tasks.types';
 
 interface ITaskProps {
-  task: ITask;
+  task: TTask;
   isColor?: boolean;
   isMinimal?: boolean;
 }
@@ -20,13 +20,16 @@ export const Task = ({ task, isColor, isMinimal }: ITaskProps) => {
   const [isOpenTaskModal, setIsOpenTaskModal] = useState(false);
   const [isOpenSubtaskModal, setIsOpenSubtaskModal] = useState(false);
 
-  const Icon = ICON_MAP[task.icon];
+  const Icon = ICON_MAP[task.icon as keyof typeof ICON_MAP];
 
-  const completionPercentage = Math.round((task.subTasks.filter((task) => task.isCompleted).length * 100) / task.subTasks.length);
+  let completionPercentage = 0;
+  if (task && task.subtask && task.subtask.length > 0) {
+    completionPercentage = Math.round((task.subtask.filter((task) => task.is_completed).length * 100) / task.subtask.length);
+  }
 
   const dueDate = useMemo(
-    () => (isToday(task.dueDate.date) ? 'Today' : Math.ceil((+task.dueDate.date - Date.now()) / (1000 * 60 * 60 * 24)) + ' days'),
-    [task.dueDate.date],
+    () => (isToday(task.due_date) ? 'Today' : Math.ceil((+task.due_date - Date.now()) / (1000 * 60 * 60 * 24)) + ' days'),
+    [task.due_date],
   );
 
   return (
@@ -37,11 +40,11 @@ export const Task = ({ task, isColor, isMinimal }: ITaskProps) => {
             <Icon />
           </div>
           <div className='ml-4'>
-            <div className='font-medium'>{task.label}</div>
+            <div className='font-medium'>{task.title}</div>
             <div className={cn('text-[#A1A1A1] mt-2', isColor && 'text-white')}>
               {isMinimal ? (
                 <>
-                  {format(task.dueDate.startTime!, 'h.m a').toLocaleLowerCase()} - {format(task.dueDate.endTime!, 'h.m a').toLocaleLowerCase()}
+                  {format(task.start_time!, 'h.m a').toLocaleLowerCase()} - {format(task.end_time!, 'h.m a').toLocaleLowerCase()}
                 </>
               ) : (
                 <>Due: {dueDate}</>
@@ -50,13 +53,13 @@ export const Task = ({ task, isColor, isMinimal }: ITaskProps) => {
           </div>
         </div>
         <div className={cn('flex -space-x-3.5', isMinimal && 'mt-5')}>
-          {task.users?.map((user) => {
+          {/* {task.users?.map((user) => {
             return (
               <div key={user.id} className='w-10 h-10 border border-white bg-[#f6f4ff] rounded-full flex items-center justify-center text-2xl'>
                 {user.avatar}
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
       {!isMinimal && (
@@ -67,9 +70,9 @@ export const Task = ({ task, isColor, isMinimal }: ITaskProps) => {
 
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-4'>
-              <AttachmentItem content={{ title: 'Messages', icon: MessageCircleMore }} count={task.comments.length} />
-              <AttachmentItem content={{ title: 'Images', icon: Image }} count={task.resources.length} />
-              <AttachmentItem content={{ title: 'Attachments', icon: Link }} count={task.subTasks.length} />
+              <AttachmentItem content={{ title: 'Messages', icon: MessageCircleMore }} count={1} />
+              <AttachmentItem content={{ title: 'Images', icon: Image }} count={2} />
+              <AttachmentItem content={{ title: 'Attachments', icon: Link }} count={task?.subtask?.length || 0} />
             </div>
             <div className='flex items-center gap-2'>
               <ActionButton style='filled' content={{ icon: Plus, title: 'Add content' }} onClick={() => setIsOpenSubtaskModal(true)} />
